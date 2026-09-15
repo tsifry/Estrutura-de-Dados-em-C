@@ -4,13 +4,22 @@
 
 typedef struct 
 { 
-    int* fixed_arr;
+    int* data;
     int size;
     int capacity;
-} vector ;
+} vector;
 
 
-vector vector_init(int size);
+vector vector_init(int size); //Initialize array
+
+void vector_push_back(vector* v, int value); //Inserção
+void vector_pop_back(vector* v); //Remoção
+
+//Helpers
+int vector_front(vector* v); //Primeiro elemento
+int vector_back(vector* v); //Ultimo elemento
+int vector_at(vector* v, int index); //Elemento em certo índice (com error handling)
+int vector_size(vector* v); //Retorna tamanho do array atual.
 
 int main()
 {
@@ -19,9 +28,11 @@ int main()
 };
 
 vector vector_init(int size){
-    
     vector v;
+
     v.capacity = size * 2;
-    v.size = size;
-    v.fixed_arr = malloc(size * sizeof(*v.fixed_arr));
+    v.size = 0;
+    v.data = malloc(v.capacity * sizeof(*v.data));
+
+    return v;
 }
