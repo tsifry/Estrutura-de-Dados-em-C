@@ -10,7 +10,7 @@ typedef struct
 } vector;
 
 
-vector vector_init(int size); //Initialize array
+vector vector_init(int initial_capacity); //Initialize array
 
 void vector_push_back(vector* v, int value); //Inserção
 void vector_pop_back(vector* v); //Remoção
@@ -27,11 +27,11 @@ int main()
     return 0;
 };
 
-vector vector_init(int size){
+vector vector_init(int initial_capacity){
     vector v;
 
-    v.capacity = size * 2;
     v.size = 0;
+    v.capacity = initial_capacity;
     v.data = malloc(v.capacity * sizeof(*v.data));
 
     return v;
