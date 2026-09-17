@@ -36,3 +36,15 @@ vector vector_init(int initial_capacity){
 
     return v;
 }
+
+int vector_size(vector* v){
+    return v->size;
+}
+
+int vector_front(vector* v){
+    return v->data[0];
+}
+
+int vector_back(vector* v){
+    return v->data[v->size];
+}
