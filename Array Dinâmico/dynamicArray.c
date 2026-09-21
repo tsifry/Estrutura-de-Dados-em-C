@@ -48,3 +48,7 @@ int vector_front(vector* v){
 int vector_back(vector* v){
     return v->data[v->size];
 }
+
+int vector_at(vector* v, int index){
+    return v->data[index];
+}
