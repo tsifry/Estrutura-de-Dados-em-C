@@ -9,35 +9,21 @@ struct Node {
 };
 
 //Life Cycle
-Node* create_list();
-Node* create_node();
 void free_list(Node* head);
 
-void insert_end(Node* n, int value);
+//Traversal
+void display(Node* list);
+
+void insert_end(Node** n, int value);
 
 int main()
 {
-    Node* list = create_list();
-    insert_end(list, 10);
-
+    Node* list = NULL;
+    insert_end(&list, 10);
+    insert_end(&list, 15);
+    insert_end(&list, 20);
+    display(list);
 };
-
-
-//Cria um node vazio.
-Node* create_node(){
-
-    Node* n = (Node*) malloc(sizeof(Node));
-    n->data = 0;
-    n->next = NULL;
-
-    return n;
-}
-
-Node* create_list()
-{
-    Node* head = create_node();
-    return head;
-}
 
 void free_list(Node* head){
     Node* next;
@@ -50,18 +36,39 @@ void free_list(Node* head){
     }
 }
 
-void insert_end(Node* n, int value){
-
-    if(n == NULL) return;
-
-    while(n->next != NULL){
-        n = n->next;
-    }
+void insert_end(Node** n, int value){
 
     //Cria nova Tail
-    Node* tail = create_node();
+    Node* tail = malloc(sizeof(Node));;
+    
+    //Caso seja a Head
+    if(*n == NULL){
+        tail->data = value;
+        tail->next = NULL;
+        
+        *n = tail;
+        return;
+    }
 
-    n->data = value;
-    n->next = tail;
+    while((*n)->next != NULL){
+        (*n) = (*n)->next;
+    }
+
+    tail->data = value;
+    tail->next = NULL;
+
+    (*n)->next = tail;
+
+}
+
+void display(Node* list){
+
+    if(list == NULL) return;
+    Node* current = list;
+
+    while(current != NULL){
+        printf("Data: %d \n", current->data);
+        current = current->next;
+    }
 
 }
