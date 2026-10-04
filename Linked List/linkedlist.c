@@ -25,24 +25,9 @@ void insert_at(Node** n, int position, int value);
 void delete_head(Node** n);
 void delete_tail(Node* n);
 
-int main()
-{
-    Node* list = NULL;
+//Search
+Node* searchVal(Node* n, int value);
 
-    for(int i = 1; i <= 5; i++){
-        insert_end(&list, i);
-    }
-
-    display(list);
-    printf("Full length: %d\n", length(list));
-
-    insert_at(&list, 2, 127);
-    insert_at(&list, 3, 512);
-    insert_at(&list, 1, 1000);
-
-    display(list);
-    printf("Full length: %d\n", length(list));
-};
 
 void free_list(Node* head){
     Node* next;
@@ -115,8 +100,6 @@ void insert_at(Node** n, int position, int value){
     newNode->next = prox;
 }
 
-//10 -> 20 -> |25| -> 30 -> 40 -> null
-
 void display(Node* list){
 
     if(list == NULL) return;
@@ -181,4 +164,21 @@ void delete_head(Node** n){
     (*n) = curr->next;
 
     free(curr);
+}
+
+Node* searchVal(Node* n, int value){
+
+    if(n == NULL) return NULL;
+
+    Node* curr = n;
+    while(curr != NULL){
+        
+        if(curr->data == value){
+            return curr;
+        };
+
+        curr = curr->next;
+    }
+
+    return NULL;
 }
