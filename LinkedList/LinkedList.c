@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <LinkedList.h>
-
+#include "LinkedList.h"
 
 void free_list(Node* head){
     Node* next;
