@@ -22,6 +22,6 @@ int lookup(HashTable* ht, char* key);
 
 //Linked list of HashEntry operations
 void hashE_insert_end(HashEntry** n, char* key, int value);
-void hashE_delete_key(HashEntry* n, char* key);
+void hashE_delete_key(HashEntry** n, char* key);
 void hashE_display(HashEntry* list);
-int hashE_searchVal(HashEntry* n, char* key);
+HashEntry* hashE_searchVal(HashEntry* n, char* key);

@@ -12,11 +12,6 @@ HashTable* initializeHashTable(int size)
     for(int i = 0; i < ht->bucketSize; i++){
         ht->bucket[i] = NULL;
     }
-
-    //bucket->  buckect[0] = ponteiro -> Node
-    //          buckect[1] = ponteiro -> Node
-    //          buckect[2] = ponteiro -> Node
-    //          buckect[3] = ponteiro -> Node
     
     return ht;
 };
@@ -37,13 +32,13 @@ void append(HashTable* ht, char* key, int value){
 void delete(HashTable* ht, char* key){
 
     int index = hashFunction(key, ht->bucketSize);
-    hashE_delete_key(ht->bucket[index], key);
+    hashE_delete_key(&(ht->bucket[index]), key);
 };
 
 int lookup(HashTable* ht, char* key){
 
     int index = hashFunction(key, ht->bucketSize);
-    int found = hashE_searchVal(ht->bucket[index], key);
+    int found = hashE_searchVal(ht->bucket[index], key)->data;
 
     if(found == -1){
         printf("Not found");
@@ -56,7 +51,10 @@ int lookup(HashTable* ht, char* key){
 
 };
 
-//Linked List operations especificamente pra hash table.
+////////////////////////////////////////////////////////////////////////
+//Linked List operations especificamente para manipular as entries de um bucket.
+////////////////////////////////////////////////////////////////////////
+
 void hashE_insert_end(HashEntry** n, char* key, int value){
 
     //Cria nova Tail
@@ -81,26 +79,51 @@ void hashE_insert_end(HashEntry** n, char* key, int value){
 };
 
 
-void hashE_delete_key(HashEntry* n, char* key)
+void hashE_delete_key(HashEntry** n, char* key)
 {
-    //TODO
+    if(n == NULL) return;
+
+    HashEntry* curr = (*n);
+    HashEntry* prev = NULL;
+
+    while(curr != NULL){
+        
+        if(strcmp(curr->key, key) == 0){
+
+            if(prev != NULL)
+            {
+                prev->next = curr->next;
+            }else
+            {
+                (*n) = curr->next;
+            }
+
+            free(curr->key);
+            free(curr);
+
+            return;
+        };
+
+        prev = curr;
+        curr = curr->next;
+    }
 };
 
-int hashE_searchVal(HashEntry* n, char* key)
+HashEntry* hashE_searchVal(HashEntry* n, char* key)
 {
-    if(n == NULL) return -1;
+    if(n == NULL) return NULL;
 
     HashEntry* curr = n;
     while(curr != NULL){
         
         if(strcmp(curr->key, key) == 0){
-            return curr->data;
+            return curr;
         };
 
         curr = curr->next;
     }
 
-    return -1;
+    return NULL;
 }
 
 void hashE_display(HashEntry* list){
