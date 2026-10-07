@@ -154,4 +154,4 @@ Node* searchVal(Node* n, int value){
     }
 
     return NULL;
-}
+};
