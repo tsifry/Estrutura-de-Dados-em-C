@@ -50,6 +50,13 @@ void vector_pop_back(vector* v){
     v->size--;
 }
 
+void vector_set(vector* v, int index, int value)
+{
+    if(index <= 0 || index >= v->size) return;
+    
+    v->data[index] = value;
+}
+
 //Tamanho lógico
 size_t vector_size(vector* v){
     return v->size;
